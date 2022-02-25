@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Pviturro.EcommerceAPI.Domain\Pviturro.EcommerceAPI.Domain.csproj" />
+    <ProjectReference Include="..\Pviturro.EcommerceAPI.Infrastructure\Pviturro.EcommerceAPI.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
