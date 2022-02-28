@@ -5,6 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Pviturro.EcommerceAPI.Domain\Pviturro.EcommerceAPI.Domain.csproj" />
     <ProjectReference Include="..\Pviturro.EcommerceAPI.Infrastructure\Pviturro.EcommerceAPI.Infrastructure.csproj" />
   </ItemGroup>

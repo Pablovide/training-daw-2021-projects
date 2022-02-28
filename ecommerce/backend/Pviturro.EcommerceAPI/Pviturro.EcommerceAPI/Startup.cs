@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Pviturro.EcommerceAPI.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,7 @@ namespace Pviturro.EcommerceAPI
         {
 
             services.AddControllers();
+            services.AddDbContext<EcommerceContext>(o => o.UseSqlite(Configuration.GetConnectionString("DatabaseConnection"), m => m.MigrationsAssembly("Pviturro.EcommerceAPI.Infrastructure")));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pviturro.EcommerceAPI", Version = "v1" });
@@ -37,6 +40,7 @@ namespace Pviturro.EcommerceAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            UpdateDatabase(app);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,6 +58,19 @@ namespace Pviturro.EcommerceAPI
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using(var serviceScope = app.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
+            {
+                using (var context = serviceScope.ServiceProvider.GetService<EcommerceContext>())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }
