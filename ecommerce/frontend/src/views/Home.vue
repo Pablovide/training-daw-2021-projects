@@ -1,6 +1,5 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
     <div>Listado de productos</div>
     <div class="d-flex justify-content-center">
       <div class="d-flex flex-wrap justify-content-center mt-2 w-75">
@@ -15,9 +14,10 @@
           class="m-3"
         >
           <b-card-text>{{ product.short }}</b-card-text>
+          <b-card-text style="font-weight: bold; text-align: end;">${{ product.price }}</b-card-text>
           <div class="d-flex justify-content-center" style="gap: 0.5rem">
-            <b-button variant="primary">View</b-button>
-            <b-button variant="primary" v-on:click="addProduct(product)">Add</b-button>
+            <router-link :to="{name: 'Product', params: {id: product.id}}"><b-button variant="primary">View</b-button></router-link>
+            <b-button variant="primary" v-on:click="putProduct(product)">Add</b-button>
           </div>
         </b-card>
       </div>
@@ -30,14 +30,14 @@
           <div v-for="product in selectedProducts" v-bind:key="product.id">
             <div class="d-flex justify-content-between">
               <div>{{ product.name }}</div>
-              <div>{{ product.price }}</div>
+              <div>${{ product.price }}</div>
             </div>
           </div>
           <div class="d-flex justify-content-between">
             <div>TOTAL</div>
-            <div>{{ totalPrice }}</div>
+            <div>${{ totalPrice }}</div>
           </div>
-          <b-button variant="primary">Checkout</b-button>
+          <router-link :to="{name: 'cart'}"><b-button variant="primary">Checkout</b-button></router-link>
         </b-card>
       </div>
     </div>
@@ -51,10 +51,17 @@
 export default {
   name: "Home",
   created() {
-    fetch("http://localhost:3000/products")
+    fetch(`${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/products/`)
       .then((response) => response.json())
       .then((json) => {
         this.products = json;
+      });
+      fetch("http://localhost:3000/cart/0")
+      .then((response) => response.json())
+      .then((json) => {
+        json.products.forEach(product => {
+          this.putProduct(product);
+        });
       });
   },
   data() {
@@ -66,14 +73,24 @@ export default {
   },
   components: {},
   methods: {
-    addProduct(product) {
+    addProductToCart(product) {
+      this.putProduct(product);
+      fetch("http://localhost:3000/cart/0", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: 0,
+          products: this.selectedProducts
+        }),
+      });
+      this.putProduct(product);
+    },
+    putProduct(product){
       this.selectedProducts.push(product);
       this.totalPrice += parseInt(product.price);
-    },
-    removeProduct(product) {
-      this.selectedProducts.splice(this.selectedProducts.indexOf(product), 1);
-      this.totalPrice -= parseInt(product.price);
-    },
+    }
   },
 };
 </script>
