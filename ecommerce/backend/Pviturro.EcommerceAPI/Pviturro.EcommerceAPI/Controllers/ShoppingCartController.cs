@@ -8,9 +8,28 @@ namespace Pviturro.EcommerceAPI.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        public IActionResult Index()
+        [HttpPut("/cart/add")]
+        public IActionResult AddProductToCart()
         {
-            return View();
+            throw new NotImplementedException();
+        }
+
+        [HttpPut("/cart/delete")]
+        public IActionResult DeleteProductFromCart()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPut("/cart/update")]
+        public IActionResult UpdateProductInCart()
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPut("/cart/empty")]
+        public IActionResult EmptyCart()
+        {
+            throw new NotImplementedException();
         }
     }
 }
