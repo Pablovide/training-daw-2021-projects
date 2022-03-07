@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Pviturro.EcommerceAPI.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,28 +9,57 @@ namespace Pviturro.EcommerceAPI.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        [HttpPut("/cart/add")]
-        public IActionResult AddProductToCart()
+        private IEcommerceService _service;
+        [HttpPut("/cart/add/{id}")]
+        public IActionResult AddProductToCart(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.AddProductToCart(id);
+                return NoContent();
+            } catch(Exception e)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("/cart/delete")]
-        public IActionResult DeleteProductFromCart()
+        public IActionResult DeleteProductFromCart(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.DeleteProductFromCart(id);
+                return NoContent();
+            } catch (Exception e)
+            {
+                return BadRequest();
+            }
         }
 
-        [HttpPut("/cart/update")]
-        public IActionResult UpdateProductInCart()
+        [HttpPut("/cart/update/{id}/{qtity}")]
+        public IActionResult UpdateProductInCart(int id, int qtity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.UpdateProductInCart(id, qtity);
+                return NoContent();
+            } catch (Exception e)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("/cart/empty")]
         public IActionResult EmptyCart()
         {
-            throw new NotImplementedException();
+            try
+            {
+                _service.EmptyCart();
+                return NoContent();
+            } catch (Exception e)
+            {
+                return BadRequest();
+            }
         }
     }
 }
