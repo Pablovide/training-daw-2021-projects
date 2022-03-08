@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pviturro.EcommerceAPI.Domain.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,11 @@ namespace Pviturro.EcommerceAPI.Domain.Infrastructure
 {
     public interface IProductRepository
     {
+        void CreateProduct(ProductEntity productEntity);
+        void DeleteProduct(int id);
+        ProductEntity GetProductById(int id);
+        List<ProductEntity> GetAllProducts();
+        List<ProductEntity> GetAllProductsByCategory(int id);
+        void UpdateProduct(int id, ProductEntity productEntity);
     }
 }

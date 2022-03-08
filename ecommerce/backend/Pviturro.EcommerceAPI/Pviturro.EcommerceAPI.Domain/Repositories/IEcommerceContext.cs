@@ -13,5 +13,21 @@ namespace Pviturro.EcommerceAPI.Domain.Repositories
         DbSet<CategoryEntity> Categories { get; set; }
         DbSet<ProductEntity> Products { get; set; }
         DbSet<ShoppingCartEntity> ShoppingCarts { get; set; }
+        void CreateCategory(CategoryEntity categoryEntity);
+        void DeleteCategory(int id);
+        List<CategoryEntity> GetAllCategories();
+        CategoryEntity GetCategoryById(int id);
+        void UpdateCategory(int id, CategoryEntity categoryEntity);
+        void CreateProduct(ProductEntity productEntity);
+        void DeleteProduct(int id);
+        ProductEntity GetProductById(int id);
+        List<ProductEntity> GetAllProducts();
+        List<ProductEntity> GetAllProductsByCategory(int id);
+        void UpdateProduct(int id, ProductEntity productEntity);
+        void AddProductToCart(int id);
+        bool IsProductInCart(int id);
+        void DeleteProductFromCart(int id);
+        void EmptyCart();
+        void UpdateProductInCart(int id, int quantity);
     }
 }
