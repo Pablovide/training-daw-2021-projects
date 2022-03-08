@@ -1,4 +1,5 @@
-﻿using Pviturro.EcommerceAPI.Domain.Services;
+﻿using Pviturro.EcommerceAPI.Domain.Repositories;
+using Pviturro.EcommerceAPI.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,29 +9,31 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary.Services
 {
     public class ShoppingCartService : IShoppingCartService
     {
+        private IEcommerceContext _context;
+
         public void AddProductToCart(int id)
         {
-            throw new NotImplementedException();
+            _context.AddProductToCart(id);
         }
 
         public bool ContainsProduct(int id)
         {
-            throw new NotImplementedException();
+            return _context.IsProductInCart(id);
         }
 
         public void DeleteProductFromCart(int id)
         {
-            throw new NotImplementedException();
+            _context.DeleteProductFromCart(id);
         }
 
         public void EmptyCart()
         {
-            throw new NotImplementedException();
+            _context.EmptyCart();
         }
 
         public void UpdateProductInCart(int id, int quantity)
         {
-            throw new NotImplementedException();
+            _context.UpdateProductInCart(id, quantity);
         }
     }
 }

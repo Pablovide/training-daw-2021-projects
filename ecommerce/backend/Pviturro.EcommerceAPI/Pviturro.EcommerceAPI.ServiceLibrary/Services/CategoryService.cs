@@ -1,4 +1,6 @@
-﻿using Pviturro.EcommerceAPI.Domain.Models.DTOs;
+﻿using Pviturro.EcommerceAPI.Domain.MapFactories;
+using Pviturro.EcommerceAPI.Domain.Models.DTOs;
+using Pviturro.EcommerceAPI.Domain.Repositories;
 using Pviturro.EcommerceAPI.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -10,29 +12,30 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary.Services
 {
     public class CategoryService : ICategoryService
     {
+        private IEcommerceContext _context;
         public void AddCategory(Category categoryToAdd)
         {
-            throw new NotImplementedException();
+            _context.CreateCategory(categoryToAdd.Map());
         }
 
         public void DeleteCategory(int id)
         {
-            throw new NotImplementedException();
+            _context.DeleteCategory(id);
         }
 
         public List<Category> GetCategories()
         {
-            throw new NotImplementedException();
+            return _context.GetAllCategories().Select(_ => _.Map()).ToList();
         }
 
         public Category GetCategoryById(int id)
         {
-            throw new NotImplementedException();
+            return _context.GetCategoryById(id).Map();
         }
 
         public void UpdateCategory(int id, Category categoryUpdated)
         {
-            throw new NotImplementedException();
+            _context.UpdateCategory(id, categoryUpdated.Map());
         }
     }
 }
