@@ -13,5 +13,7 @@ namespace Pviturro.EcommerceAPI.Domain.Services
         Product GetProductById(int id);
         void DeleteProduct(int id);
         List<Product> GetProducts();
+        List<Product> GetProductsByCategoryId(int id);
+        void UpdateProduct(int id, Product productToUpdate);
     }
 }

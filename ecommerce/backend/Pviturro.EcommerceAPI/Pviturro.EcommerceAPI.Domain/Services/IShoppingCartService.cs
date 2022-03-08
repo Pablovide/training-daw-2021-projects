@@ -8,5 +8,10 @@ namespace Pviturro.EcommerceAPI.Domain.Services
 {
     public interface IShoppingCartService
     {
+        void AddProductToCart(int id);
+        bool ContainsProduct(int id);
+        void DeleteProductFromCart(int id);
+        void EmptyCart();
+        void UpdateProductInCart(int id, int quantity);
     }
 }

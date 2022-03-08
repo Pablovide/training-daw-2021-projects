@@ -1,5 +1,4 @@
-﻿using Pviturro.EcommerceAPI.Domain.DTOs.Models;
-using Pviturro.EcommerceAPI.Domain.Models.DTOs;
+﻿using Pviturro.EcommerceAPI.Domain.Models.DTOs;
 using Pviturro.EcommerceAPI.Domain.Services;
 using System;
 using System.Collections.Generic;

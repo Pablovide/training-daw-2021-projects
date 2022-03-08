@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Pviturro.EcommerceAPI.Domain.DTOs.Models
+namespace Pviturro.EcommerceAPI.Domain.Models.DTOs
 {
     public class Category
     {
