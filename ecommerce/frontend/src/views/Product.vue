@@ -21,7 +21,7 @@
         <router-link :to="{ name: 'Home' }"
           ><b-button variant="primary">Home</b-button></router-link
         >
-        <b-button variant="primary" v-on:click="addProduct(product)"
+        <b-button variant="primary" v-on:click="addProductToCart(product)"
           >Add to cart</b-button
         >
       </div></b-card
@@ -37,6 +37,11 @@ export default {
       .then((json) => {
         this.product = json;
       });
+    fetch(`${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/cart/0`)
+      .then((response) => response.json())
+      .then((json) => {
+        this.cart = json;
+      });
   },
   props: {
     id: Number,
@@ -44,8 +49,21 @@ export default {
   data() {
     return {
       product: {},
+      cart: {}
     };
   },
+  methods: {
+      addProductToCart(){
+        this.cart.products.push(this.product);
+        fetch(`${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/cart/0`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(this.cart)
+        })
+      }
+  }
 };
 </script>
 

@@ -17,7 +17,7 @@
           <b-card-text style="font-weight: bold; text-align: end;">${{ product.price }}</b-card-text>
           <div class="d-flex justify-content-center" style="gap: 0.5rem">
             <router-link :to="{name: 'Product', params: {id: product.id}}"><b-button variant="primary">View</b-button></router-link>
-            <b-button variant="primary" v-on:click="putProduct(product)">Add</b-button>
+            <b-button variant="primary" v-on:click="addProductToCart(product)">Add</b-button>
           </div>
         </b-card>
       </div>
@@ -56,7 +56,7 @@ export default {
       .then((json) => {
         this.products = json;
       });
-      fetch("http://localhost:3000/cart/0")
+      fetch(`${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/cart/0`)
       .then((response) => response.json())
       .then((json) => {
         json.products.forEach(product => {
@@ -75,7 +75,7 @@ export default {
   methods: {
     addProductToCart(product) {
       this.putProduct(product);
-      fetch("http://localhost:3000/cart/0", {
+      fetch(`${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/cart/0`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -85,7 +85,6 @@ export default {
           products: this.selectedProducts
         }),
       });
-      this.putProduct(product);
     },
     putProduct(product){
       this.selectedProducts.push(product);
