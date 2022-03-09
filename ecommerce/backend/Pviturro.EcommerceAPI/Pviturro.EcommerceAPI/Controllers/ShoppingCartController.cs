@@ -29,7 +29,7 @@ namespace Pviturro.EcommerceAPI.Controllers
             }
         }
 
-        [HttpPut("/cart/delete")]
+        [HttpPut("/cart/delete/{id}")]
         public IActionResult DeleteProductFromCart(int id)
         {
             try

@@ -14,5 +14,6 @@ namespace Pviturro.EcommerceAPI.Domain.Models.Entities
         public string Description { get; set; }
         public decimal price { get; set; }
         public CategoryEntity Category { get; set; }
+        public int CategoryId { get; internal set; }
     }
 }

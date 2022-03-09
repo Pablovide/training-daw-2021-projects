@@ -19,7 +19,7 @@ namespace Pviturro.EcommerceAPI.Domain.MapFactories
         public static ProductEntity Map(this Product dto)
         {
             if (dto == null) return new ProductEntity();
-            return new ProductEntity { Id = dto.Id, Category = dto.Category.Map(), Description = dto.Description, Name = dto.Name, price = dto.Price };
+            return new ProductEntity { Id = dto.Id, Description = dto.Description, Name = dto.Name, price = dto.Price, CategoryId = dto.CategoryId };
         }
 
         public static ShoppingCartEntity Map(this ShoppingCart dto)

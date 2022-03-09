@@ -53,6 +53,8 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
 
         public void CreateProduct(ProductEntity productEntity)
         {
+            if(_categoryRepository.GetCategoryById(productEntity.CategoryId) == null) throw new Exception();
+            productEntity.Category = _categoryRepository.GetCategoryById(productEntity.CategoryId);
             _productRepository.CreateProduct(productEntity);
             _context.SaveChanges();
         }
@@ -77,7 +79,8 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
         {
             if (_categoryRepository.GetCategoryById(id) != null)
             {
-                return _productRepository.GetAllProductsByCategory(id);
+                var result = _productRepository.GetAllProductsByCategory(id);
+                return result;
             }
             throw new Exception();
         }

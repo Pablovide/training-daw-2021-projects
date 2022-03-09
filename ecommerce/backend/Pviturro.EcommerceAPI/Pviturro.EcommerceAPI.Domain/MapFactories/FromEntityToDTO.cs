@@ -13,13 +13,13 @@ namespace Pviturro.EcommerceAPI.Domain.MapFactories
         public static Category Map(this CategoryEntity entity)
         {
             if (entity == null) return new Category();
-            return new Category { Id = entity.Id, Description = entity.Description, Name = entity.Name, Products = entity.Products!=null ? entity.Products.Select(_ => _.Map()).ToList(): new List<Product>()};
+            return new Category { Id = entity.Id, Description = entity.Description, Name = entity.Name};
         }
 
         public static Product Map(this ProductEntity entity)
         {
             if (entity == null) return new Product();
-            return new Product { Id = entity.Id, Category = entity.Category.Map(), CategoryId = entity.Category.Id, Description = entity.Description, Name = entity.Name, Price = entity.price };
+            return new Product { Id = entity.Id, CategoryId = entity.CategoryId, Description = entity.Description, Name = entity.Name, Price = entity.price };
         }
 
         public static ShoppingCart Map(this ShoppingCartEntity entity)
