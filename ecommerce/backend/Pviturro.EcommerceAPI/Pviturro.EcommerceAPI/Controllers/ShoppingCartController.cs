@@ -10,6 +10,12 @@ namespace Pviturro.EcommerceAPI.Controllers
     public class ShoppingCartController : Controller
     {
         private IEcommerceService _service;
+
+        public ShoppingCartController(IEcommerceService service)
+        {
+            _service = service;
+        }
+
         [HttpPut("/cart/add/{id}")]
         public IActionResult AddProductToCart(int id)
         {

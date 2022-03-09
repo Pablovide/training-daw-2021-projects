@@ -8,7 +8,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Pviturro.EcommerceAPI.Domain.Repositories;
+using Pviturro.EcommerceAPI.Domain.Services;
 using Pviturro.EcommerceAPI.Infrastructure;
+using Pviturro.EcommerceAPI.Infrastructure.Repositories;
+using Pviturro.EcommerceAPI.ServiceLibrary;
+using Pviturro.EcommerceAPI.ServiceLibrary.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +33,16 @@ namespace Pviturro.EcommerceAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             services.AddDbContext<EcommerceContext>(o => o.UseSqlite(Configuration.GetConnectionString("DatabaseConnection"), m => m.MigrationsAssembly("Pviturro.EcommerceAPI.Infrastructure")));
+            services.AddTransient<IShoppingCartRepository, ShoppingCartRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IEcommerceRepository, EcommerceRepository>();
+            services.AddTransient<IShoppingCartService, ShoppingCartService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IEcommerceService, EcommerceService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Pviturro.EcommerceAPI", Version = "v1" });

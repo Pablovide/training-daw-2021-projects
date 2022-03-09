@@ -11,6 +11,12 @@ namespace Pviturro.EcommerceAPI.Controllers
     public class ProductController : Controller
     {
         private IEcommerceService _service;
+
+        public ProductController(IEcommerceService service)
+        {
+            _service = service;
+        }
+
         [HttpGet("/product")]
         public IActionResult GetProducts()
         {

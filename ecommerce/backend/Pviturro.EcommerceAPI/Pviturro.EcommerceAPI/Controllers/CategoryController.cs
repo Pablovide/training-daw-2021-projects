@@ -11,6 +11,12 @@ namespace Pviturro.EcommerceAPI.Controllers
     public class CategoryController : Controller
     {
         private IEcommerceService _service;
+
+        public CategoryController(IEcommerceService service)
+        {
+            _service = service;
+        }
+
         [HttpGet("/category")]
         public IActionResult GetCategories()
         {
