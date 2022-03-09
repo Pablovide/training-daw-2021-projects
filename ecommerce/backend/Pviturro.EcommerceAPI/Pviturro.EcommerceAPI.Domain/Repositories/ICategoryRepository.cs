@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Pviturro.EcommerceAPI.Domain.Infrastructure
+namespace Pviturro.EcommerceAPI.Domain.Repositories
 {
     public interface ICategoryRepository
     {

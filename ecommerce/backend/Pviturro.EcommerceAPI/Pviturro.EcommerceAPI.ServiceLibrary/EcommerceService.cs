@@ -13,6 +13,12 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary
         private IProductService _productService;
         private ICategoryService _categoryService;
         private IShoppingCartService _cartService;
+        public EcommerceService(IProductService productService, ICategoryService categoryService, IShoppingCartService shoppingCartService)
+        {
+            _productService = productService;
+            _categoryService = categoryService;
+            _cartService = shoppingCartService;
+        }
 
         public void AddCategory(Category categoryToAdd)
         {

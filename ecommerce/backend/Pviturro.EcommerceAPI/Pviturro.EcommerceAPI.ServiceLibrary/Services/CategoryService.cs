@@ -12,7 +12,13 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary.Services
 {
     public class CategoryService : ICategoryService
     {
-        private IEcommerceContext _context;
+        private IEcommerceRepository _context;
+
+        public CategoryService(IEcommerceRepository context)
+        {
+            _context = context;
+        }
+
         public void AddCategory(Category categoryToAdd)
         {
             _context.CreateCategory(categoryToAdd.Map());

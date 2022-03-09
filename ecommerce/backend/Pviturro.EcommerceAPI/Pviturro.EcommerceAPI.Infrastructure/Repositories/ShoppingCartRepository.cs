@@ -13,7 +13,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
     {
         private DbSet<ShoppingCartEntity> _shoppingCart;
 
-        public ShoppingCartRepository(IEcommerceContext context)
+        public ShoppingCartRepository(EcommerceContext context)
         {
             _shoppingCart = context.ShoppingCarts;
         }

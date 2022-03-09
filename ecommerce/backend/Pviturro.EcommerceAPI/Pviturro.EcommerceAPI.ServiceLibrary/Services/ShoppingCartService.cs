@@ -9,7 +9,12 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary.Services
 {
     public class ShoppingCartService : IShoppingCartService
     {
-        private IEcommerceContext _context;
+        private IEcommerceRepository _context;
+
+        public ShoppingCartService(IEcommerceRepository context)
+        {
+            _context = context;
+        }
 
         public void AddProductToCart(int id)
         {

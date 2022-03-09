@@ -8,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace Pviturro.EcommerceAPI.Domain.Repositories
 {
-    public interface IEcommerceContext
+    public interface IEcommerceRepository
     {
-        DbSet<CategoryEntity> Categories { get; set; }
-        DbSet<ProductEntity> Products { get; set; }
-        DbSet<ShoppingCartEntity> ShoppingCarts { get; set; }
         void CreateCategory(CategoryEntity categoryEntity);
         void DeleteCategory(int id);
         List<CategoryEntity> GetAllCategories();

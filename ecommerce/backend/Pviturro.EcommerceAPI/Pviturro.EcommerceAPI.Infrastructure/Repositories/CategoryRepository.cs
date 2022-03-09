@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Pviturro.EcommerceAPI.Domain.Infrastructure;
 using Pviturro.EcommerceAPI.Domain.Models.Entities;
 using Pviturro.EcommerceAPI.Domain.Repositories;
 using System;
@@ -14,7 +13,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
     {
         private DbSet<CategoryEntity> _categories;
 
-        public CategoryRepository(IEcommerceContext context)
+        public CategoryRepository(EcommerceContext context)
         {
             _categories = context.Categories;
         }

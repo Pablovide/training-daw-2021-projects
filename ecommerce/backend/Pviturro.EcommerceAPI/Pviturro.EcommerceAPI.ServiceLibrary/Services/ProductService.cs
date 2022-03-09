@@ -11,7 +11,12 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary.Services
 {
     public class ProductService : IProductService
     {
-        private IEcommerceContext _context;
+        private IEcommerceRepository _context;
+
+        public ProductService(IEcommerceRepository repository)
+        {
+            _context = repository;
+        }
         public void AddProduct(Product productToAdd)
         {
             _context.CreateProduct(productToAdd.Map());
