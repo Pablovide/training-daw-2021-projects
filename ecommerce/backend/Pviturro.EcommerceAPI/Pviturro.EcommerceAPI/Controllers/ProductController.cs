@@ -23,7 +23,11 @@ namespace Pviturro.EcommerceAPI.Controllers
             try
             {
                 var result = _service.GetProducts();
-                return Ok(result);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return NotFound();
             } catch (Exception e)
             {
                 return BadRequest();
@@ -36,7 +40,11 @@ namespace Pviturro.EcommerceAPI.Controllers
             try
             {
                 var result = _service.GetProductById(id);
-                return Ok(result);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return NotFound();
             } catch(Exception e)
             {
                 return BadRequest();
@@ -49,7 +57,11 @@ namespace Pviturro.EcommerceAPI.Controllers
             try
             {
                 var result = _service.GetProductsByCategoryId(id);
-                return Ok(result);
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return NotFound();
             } catch (Exception e)
             {
                 return BadRequest();

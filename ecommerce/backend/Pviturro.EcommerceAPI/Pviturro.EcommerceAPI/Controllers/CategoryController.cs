@@ -23,8 +23,13 @@ namespace Pviturro.EcommerceAPI.Controllers
             try
             {
                 var result = _service.GetCategories();
-                return Ok(result);
-            } catch (Exception e)
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return NotFound();
+            }
+            catch (Exception e)
             {
                 return BadRequest();
             }
@@ -36,8 +41,13 @@ namespace Pviturro.EcommerceAPI.Controllers
             try
             {
                 var result = _service.GetCategoryById(id);
-                return Ok(result);
-            } catch(Exception e)
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return NotFound();
+            }
+            catch (Exception e)
             {
                 return BadRequest();
             }
@@ -50,7 +60,8 @@ namespace Pviturro.EcommerceAPI.Controllers
             {
                 _service.AddCategory(categoryToAdd);
                 return NoContent();
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return BadRequest();
             }
@@ -63,7 +74,8 @@ namespace Pviturro.EcommerceAPI.Controllers
             {
                 _service.UpdateCategory(id, categoryUpdated);
                 return NoContent();
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return BadRequest();
             }
@@ -76,7 +88,8 @@ namespace Pviturro.EcommerceAPI.Controllers
             {
                 _service.DeleteCategory(id);
                 return NoContent();
-            } catch(Exception e)
+            }
+            catch (Exception e)
             {
                 return BadRequest();
             }
