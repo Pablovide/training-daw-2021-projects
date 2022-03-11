@@ -61,6 +61,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
 
         public void DeleteProduct(int id)
         {
+            if (_shoppingCartRepository.IsProductInCart(id)) { _shoppingCartRepository.DeleteProductFromCart(id); }
             _productRepository.DeleteProduct(id);
             _context.SaveChanges();
         }
@@ -96,6 +97,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             var product = _productRepository.GetProductById(id);
             if (product != null)
             {
+                if (_shoppingCartRepository.IsProductInCart(id)) { throw new Exception("Product is already in cart"); }
                 _shoppingCartRepository.AddProductToCart(id, product);
                 _context.SaveChanges();
                 return;
