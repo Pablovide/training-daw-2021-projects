@@ -21,7 +21,7 @@ namespace Pviturro.EcommerceAPI.Domain.Services
         void UpdateProduct(int id, Product productToUpdate);
         void DeleteProduct(int id);
         void AddProductToCart(ShoppingCart cartItem);
-        void DeleteProductFromCart(int id);
+        void DeleteProductFromCart(int id, string email);
         void UpdateProductInCart(int id, int quantity, string email);
         void EmptyCart();
     }

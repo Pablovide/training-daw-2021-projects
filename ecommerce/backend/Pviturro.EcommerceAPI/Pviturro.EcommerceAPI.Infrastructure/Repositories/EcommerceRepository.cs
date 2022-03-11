@@ -155,5 +155,11 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             }
             throw new Exception();
         }
+
+        public void DeleteProductFromSomeonesCart(string email, int id)
+        {
+            _shoppingCartRepository.DeleteProductFromSomeonesCart(email, id);
+            _context.SaveChanges();
+        }
     }
 }

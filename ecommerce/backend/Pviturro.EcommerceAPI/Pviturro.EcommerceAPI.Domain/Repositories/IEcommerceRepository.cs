@@ -27,5 +27,6 @@ namespace Pviturro.EcommerceAPI.Domain.Repositories
         bool IsProductInSomeonesCart(int id, string email);
         void EmptyCart();
         void UpdateProductInCart(int id, int quantity, string email);
+        void DeleteProductFromSomeonesCart(string email, int id);
     }
 }

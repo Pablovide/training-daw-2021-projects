@@ -60,12 +60,12 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary
             throw new Exception();
         }
 
-        public void DeleteProductFromCart(int id)
+        public void DeleteProductFromCart(int id, string email)
         {
             if(_productService.GetProductById(id) != null
-                && _cartService.ContainsProduct(id))
+                && _cartService.SomeoneContainsProduct(email, id))
             {
-                _cartService.DeleteProductFromCart(id);
+                _cartService.DeleteProductFromSomeonesCart(email, id);
                 return;
             }
             throw new Exception();

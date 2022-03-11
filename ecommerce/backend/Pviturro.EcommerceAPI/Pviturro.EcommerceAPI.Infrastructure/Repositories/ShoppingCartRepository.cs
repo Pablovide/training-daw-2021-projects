@@ -28,6 +28,11 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             _shoppingCart.RemoveRange(_shoppingCart.Where(_ => _.Product.Id == id).ToList());
         }
 
+        public void DeleteProductFromSomeonesCart(string email, int id)
+        {
+            _shoppingCart.Remove(_shoppingCart.Where(_ => _.Product.Id == id && _.Email.Equals(email)).First());
+        }
+
         public void EmptyCart()
         {
             _shoppingCart.RemoveRange(_shoppingCart.ToList());

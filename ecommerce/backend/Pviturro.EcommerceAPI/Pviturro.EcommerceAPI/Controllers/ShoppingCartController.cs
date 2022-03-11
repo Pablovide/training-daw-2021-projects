@@ -17,7 +17,7 @@ namespace Pviturro.EcommerceAPI.Controllers
             _service = service;
         }
 
-        [HttpPut("/cart/add/")]
+        [HttpPost("/cart/add/")]
         public IActionResult AddProductToCart([FromBody] ShoppingCart cartItem)
         {
             try
@@ -31,11 +31,11 @@ namespace Pviturro.EcommerceAPI.Controllers
         }
 
         [HttpDelete("/cart/delete/{productid}")]
-        public IActionResult DeleteProductFromCart(int productid)
+        public IActionResult DeleteProductFromCart(int productid, string email)
         {
             try
             {
-                _service.DeleteProductFromCart(productid);
+                _service.DeleteProductFromCart(productid, email);
                 return NoContent();
             } catch (Exception e)
             {

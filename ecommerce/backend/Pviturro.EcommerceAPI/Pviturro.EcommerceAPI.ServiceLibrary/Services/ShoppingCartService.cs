@@ -48,5 +48,10 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary.Services
         {
             _context.UpdateProductInCart(id, quantity, email);
         }
+
+        public void DeleteProductFromSomeonesCart(string email, int id)
+        {
+            _context.DeleteProductFromSomeonesCart(email, id);
+        }
     }
 }
