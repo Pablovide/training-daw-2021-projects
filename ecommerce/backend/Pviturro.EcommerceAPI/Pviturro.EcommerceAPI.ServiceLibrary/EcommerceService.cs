@@ -30,11 +30,11 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary
             _productService.AddProduct(productToAdd);
         }
 
-        public void AddProductToCart(int id)
+        public void AddProductToCart(ShoppingCart cartItem)
         {
-            if(_productService.GetProductById(id) != null)
+            if(_productService.GetProductById(cartItem.ProductId) != null)
             {
-                _cartService.AddProductToCart(id);
+                _cartService.AddProductToCart(cartItem);
                 return;
             }
             throw new Exception();
@@ -125,12 +125,12 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary
             throw new Exception();
         }
 
-        public void UpdateProductInCart(int id, int quantity)
+        public void UpdateProductInCart(int id, int quantity, string email)
         {
             if (_productService.GetProductById(id) != null
-    && _cartService.ContainsProduct(id))
+    && _cartService.SomeoneContainsProduct(email, id))
             {
-                _cartService.UpdateProductInCart(id, quantity);
+                _cartService.UpdateProductInCart(id, quantity, email);
                 return;
             }
             throw new Exception();

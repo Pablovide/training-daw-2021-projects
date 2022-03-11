@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pviturro.EcommerceAPI.Domain.Models.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +9,11 @@ namespace Pviturro.EcommerceAPI.Domain.Services
 {
     public interface IShoppingCartService
     {
-        void AddProductToCart(int id);
+        void AddProductToCart(ShoppingCart cartItem);
         bool ContainsProduct(int id);
+        bool SomeoneContainsProduct(string email, int id);
         void DeleteProductFromCart(int id);
         void EmptyCart();
-        void UpdateProductInCart(int id, int quantity);
+        void UpdateProductInCart(int id, int quantity, string email);
     }
 }

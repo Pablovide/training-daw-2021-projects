@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Pviturro.EcommerceAPI.Domain.Models.DTOs;
 using Pviturro.EcommerceAPI.Domain.Services;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,12 @@ namespace Pviturro.EcommerceAPI.Controllers
             _service = service;
         }
 
-        [HttpPut("/cart/add/{id}")]
-        public IActionResult AddProductToCart(int id)
+        [HttpPut("/cart/add/")]
+        public IActionResult AddProductToCart([FromBody] ShoppingCart cartItem)
         {
             try
             {
-                _service.AddProductToCart(id);
+                _service.AddProductToCart(cartItem);
                 return NoContent();
             } catch(Exception e)
             {
@@ -29,12 +30,12 @@ namespace Pviturro.EcommerceAPI.Controllers
             }
         }
 
-        [HttpPut("/cart/delete/{id}")]
-        public IActionResult DeleteProductFromCart(int id)
+        [HttpDelete("/cart/delete/{productid}")]
+        public IActionResult DeleteProductFromCart(int productid)
         {
             try
             {
-                _service.DeleteProductFromCart(id);
+                _service.DeleteProductFromCart(productid);
                 return NoContent();
             } catch (Exception e)
             {
@@ -43,11 +44,11 @@ namespace Pviturro.EcommerceAPI.Controllers
         }
 
         [HttpPut("/cart/update/{id}/{qtity}")]
-        public IActionResult UpdateProductInCart(int id, int qtity)
+        public IActionResult UpdateProductInCart(int id, int qtity, string email)
         {
             try
             {
-                _service.UpdateProductInCart(id, qtity);
+                _service.UpdateProductInCart(id, qtity, email);
                 return NoContent();
             } catch (Exception e)
             {
@@ -55,7 +56,7 @@ namespace Pviturro.EcommerceAPI.Controllers
             }
         }
 
-        [HttpPut("/cart/empty")]
+        [HttpDelete("/cart/empty")]
         public IActionResult EmptyCart()
         {
             try

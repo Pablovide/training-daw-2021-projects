@@ -21,10 +21,11 @@ namespace Pviturro.EcommerceAPI.Domain.Repositories
         List<ProductEntity> GetAllProducts();
         List<ProductEntity> GetAllProductsByCategory(int id);
         void UpdateProduct(int id, ProductEntity productEntity);
-        void AddProductToCart(int id);
-        bool IsProductInCart(int id);
+        void AddProductToCart(ShoppingCartEntity cartItem);
+        bool IsProductInWholeCart(int id);
         void DeleteProductFromCart(int id);
+        bool IsProductInSomeonesCart(int id, string email);
         void EmptyCart();
-        void UpdateProductInCart(int id, int quantity);
+        void UpdateProductInCart(int id, int quantity, string email);
     }
 }

@@ -61,14 +61,15 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
 
         public void DeleteProduct(int id)
         {
-            if (_shoppingCartRepository.IsProductInCart(id)) { _shoppingCartRepository.DeleteProductFromCart(id); }
+            if (_shoppingCartRepository.IsProductInWholeCart(id)) { _shoppingCartRepository.DeleteProductFromCart(id); }
             _productRepository.DeleteProduct(id);
             _context.SaveChanges();
         }
 
         public ProductEntity GetProductById(int id)
         {
-            return _productRepository.GetProductById(id);
+            var product = _productRepository.GetProductById(id);
+            return product;
         }
 
         public List<ProductEntity> GetAllProducts()
@@ -92,25 +93,25 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-        public void AddProductToCart(int id)
+        public void AddProductToCart(ShoppingCartEntity cartEntity)
         {
-            var product = _productRepository.GetProductById(id);
+            var product = _productRepository.GetProductById(cartEntity.Product.Id);
             if (product != null)
             {
-                if (_shoppingCartRepository.IsProductInCart(id)) { throw new Exception("Product is already in cart"); }
-                _shoppingCartRepository.AddProductToCart(id, product);
+                if (_shoppingCartRepository.IsProductInSomeonesCart(cartEntity.Email, cartEntity.Product.Id)) { throw new Exception("Product is already in cart"); }
+                _shoppingCartRepository.AddProductToCart(cartEntity);
                 _context.SaveChanges();
                 return;
             }
             throw new Exception();
         }
 
-        public bool IsProductInCart(int id)
+        public bool IsProductInWholeCart(int id)
         {
             var product = _productRepository.GetProductById(id);
             if (product != null)
             {
-                return _shoppingCartRepository.IsProductInCart(id);
+                return _shoppingCartRepository.IsProductInWholeCart(id);
             }
             throw new Exception();
         }
@@ -118,7 +119,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
         public void DeleteProductFromCart(int id)
         {
             var product = _productRepository.GetProductById(id);
-            if (product != null && _shoppingCartRepository.IsProductInCart(id))
+            if (product != null && _shoppingCartRepository.IsProductInWholeCart(id))
             {
                 _shoppingCartRepository.DeleteProductFromCart(id);
                 _context.SaveChanges();
@@ -133,14 +134,24 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             _context.SaveChanges();
         }
 
-        public void UpdateProductInCart(int id, int quantity)
+        public void UpdateProductInCart(int id, int quantity, string email)
         {
             var product = _productRepository.GetProductById(id);
-            if (product != null && _shoppingCartRepository.IsProductInCart(id))
+            if (product != null && _shoppingCartRepository.IsProductInSomeonesCart(email, id))
             {
                 _shoppingCartRepository.UpdateProductInCart(id, quantity);
                 _context.SaveChanges();
                 return;
+            }
+            throw new Exception();
+        }
+
+        public bool IsProductInSomeonesCart(int id, string email)
+        {
+            var product = _productRepository.GetProductById(id);
+            if (product != null)
+            {
+                return _shoppingCartRepository.IsProductInSomeonesCart(email, id);
             }
             throw new Exception();
         }

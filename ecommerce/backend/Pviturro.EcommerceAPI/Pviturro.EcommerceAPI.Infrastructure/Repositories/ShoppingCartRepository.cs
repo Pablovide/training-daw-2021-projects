@@ -18,9 +18,9 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             _shoppingCart = context.ShoppingCarts;
         }
 
-        public void AddProductToCart(int id, ProductEntity product)
+        public void AddProductToCart(ShoppingCartEntity cartItem)
         {
-            _shoppingCart.Add(new ShoppingCartEntity { Email = "", Product = product, Quantity = 1 });
+            _shoppingCart.Add(new ShoppingCartEntity { Email = cartItem.Email, Product = cartItem.Product, Quantity = cartItem.Quantity });
         }
 
         public void DeleteProductFromCart(int id)
@@ -33,7 +33,12 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             _shoppingCart.RemoveRange(_shoppingCart.ToList());
         }
 
-        public bool IsProductInCart(int id)
+        public bool IsProductInSomeonesCart(string email, int id)
+        {
+            return _shoppingCart.Any(_ => _.Product.Id == id && _.Email.Equals(email));
+        }
+
+        public bool IsProductInWholeCart(int id)
         {
             return _shoppingCart.Any(_ => _.Product.Id == id);
         }
