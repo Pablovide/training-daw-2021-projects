@@ -32,41 +32,31 @@
         <div>TOTAL</div>
         <div>${{ totalPrice }}</div>
       </div>
-      <!--TODO-->
       <b-button variant="primary" v-on:click="checkout()">Checkout</b-button>
     </div>
   </div>
 </template>
 
 <script>
+import store from "../store/index.js";
 export default {
   created() {
-    fetch(
-      `${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/cart/0`
-    )
-      .then((response) => response.json())
-      .then((json) => {
-        this.cart = json;
-        this.productList = this.cart.products;
-        this.productList.forEach((element) => {
-          if (
-            this.selectedProducts.find((product) => product.id === element.id)
-          ) {
-            this.selectedProducts.find(
-              (product) => product.id === element.id
-            ).qtity += 1;
-            this.totalPrice += parseInt(element.price);
-          } else {
-            this.selectedProducts.push({
-              id: element.id,
-              name: element.name,
-              price: element.price,
-              qtity: 1,
-            });
-            this.totalPrice += parseInt(element.price);
-          }
+    this.productList = store.getters.cartItems;
+    this.productList.forEach((element) => {
+      if (this.selectedProducts.find((product) => product.id === element.id)) {
+        this.selectedProducts.find(
+          (product) => product.id === element.id
+        ).qtity += 1;
+      } else {
+        this.selectedProducts.push({
+          id: element.id,
+          name: element.name,
+          price: element.price,
+          qtity: 1,
         });
-      });
+      }
+    });
+    this.totalPrice = store.getters.totalPrice;
   },
   data() {
     return {
@@ -79,81 +69,37 @@ export default {
   },
   methods: {
     addProductToCart(product) {
-      this.putProduct(product);
-      fetch(
-        `${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/cart/0`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: 0,
-            products: this.productList,
-          }),
-        }
-      );
+      this.$store.commit("addToCart", product);
+      this.update();
     },
-    putProduct(product) {
-      this.productList.push(product);
-      this.totalPrice += parseInt(product.price);
-      this.selectedProducts.find(
-        (element) => element.id === product.id
-      ).qtity += 1;
+    update() {
+      this.selectedProducts = [];
+      this.productList = store.getters.cartItems;
+      this.productList.forEach((element) => {
+        if (
+          this.selectedProducts.find((product) => product.id === element.id)
+        ) {
+          this.selectedProducts.find(
+            (product) => product.id === element.id
+          ).qtity += 1;
+        } else {
+          this.selectedProducts.push({
+            id: element.id,
+            name: element.name,
+            price: element.price,
+            qtity: 1,
+          });
+        }
+      });
+      this.totalPrice = store.getters.totalPrice;
     },
     removeProductFromCart(product) {
-      this.removeProduct(product);
-      fetch(
-        `${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/cart/0`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: 0,
-            products: this.productList,
-          }),
-        }
-      );
-    },
-    removeProduct(product) {
-      if (
-        this.selectedProducts.find((element) => element.id === product.id)
-          .qtity > 0
-      ) {
-        this.productList.splice(this.productList.indexOf(product), 1);
-        this.selectedProducts.find(
-          (element) => element.id === product.id
-        ).qtity -= 1;
-        this.totalPrice -= product.price;
-      }
+      this.$store.commit("removeFromCart", product);
+      this.update();
     },
     deleteProduct(product) {
-      this.productList = this.productList.filter(
-        (element) => element.id !== product.id
-      );
-      this.totalPrice -=
-        this.selectedProducts.find((element) => element.id === product.id)
-          .price *
-        this.selectedProducts.find((element) => element.id === product.id)
-          .qtity;
-      this.selectedProducts = this.selectedProducts.filter(
-        (element) => element.id !== product.id
-      );
-      fetch(
-        `${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/cart/0`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: 0,
-            products: this.productList,
-          }),
-        }
-      );
+      this.$store.commit("deleteFromCart", product);
+      this.update();
     },
     checkout() {
       this.checkoutDone = true;
@@ -169,19 +115,8 @@ export default {
           }),
         }
       );
-      fetch(
-        `${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/cart/0`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            id: 0,
-            products: [],
-          }),
-        }
-      );
+      this.$store.commit("emptyCart");
+      this.update();
     },
   },
 };
