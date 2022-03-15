@@ -47,7 +47,10 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
 
         public ProductEntity GetProductById(int id)
         {
-            return _products.Find(id);
+            var result = _products.Find(id);
+            if (result != null)
+                return result;
+            throw new Exception();
         }
 
         public void UpdateProduct(int id, ProductEntity productEntity)

@@ -42,7 +42,12 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
 
         public CategoryEntity GetCategoryById(int id)
         {
-            return _categories.Find(id);
+            var result = _categories.Find(id);
+            if(result != null)
+            {
+                return result;
+            }
+            throw new Exception();
         }
 
         public void UpdateCategory(int id, CategoryEntity categoryEntity)
