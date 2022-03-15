@@ -84,7 +84,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
                 var result = _productRepository.GetAllProductsByCategory(id);
                 return result;
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado categoría con ID {id}");
         }
 
         public void UpdateProduct(int id, ProductEntity productEntity)
@@ -103,7 +103,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
                 _context.SaveChanges();
                 return;
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado producto con ID {cartEntity.Product.Id}");
         }
 
         public bool IsProductInWholeCart(int id)
@@ -113,7 +113,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             {
                 return _shoppingCartRepository.IsProductInWholeCart(id);
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado producto con ID {id}");
         }
 
         public void DeleteProductFromCart(int id)
@@ -125,7 +125,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
                 _context.SaveChanges();
                 return;
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado producto con ID {id}");
         }
 
         public void EmptyCart()
@@ -143,7 +143,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
                 _context.SaveChanges();
                 return;
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado producto con ID {id}");
         }
 
         public bool IsProductInSomeonesCart(int id, string email)
@@ -153,7 +153,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             {
                 return _shoppingCartRepository.IsProductInSomeonesCart(email, id);
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado producto con ID {id}");
         }
 
         public void DeleteProductFromSomeonesCart(string email, int id)

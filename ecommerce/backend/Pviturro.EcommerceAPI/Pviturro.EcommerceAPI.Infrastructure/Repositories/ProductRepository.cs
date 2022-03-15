@@ -32,7 +32,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
                 _products.Remove(product);
                 return;
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado un producto con ID {id}");
         }
 
         public List<ProductEntity> GetAllProducts()

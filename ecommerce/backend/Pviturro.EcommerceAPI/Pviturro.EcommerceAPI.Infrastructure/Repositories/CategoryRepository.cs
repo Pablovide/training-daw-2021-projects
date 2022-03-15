@@ -32,7 +32,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
                 _categories.Remove(category);
                 return;
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado categoría con ID {id}");
         }
 
         public List<CategoryEntity> GetAllCategories()
@@ -47,7 +47,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             {
                 return result;
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado categoría con ID {id}");
         }
 
         public void UpdateCategory(int id, CategoryEntity categoryEntity)
@@ -60,7 +60,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
                 targetCategory.Products = categoryEntity.Products;
                 return;
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado categoría con ID {id}");
         }
     }
 }

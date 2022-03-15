@@ -26,7 +26,7 @@ namespace Pviturro.EcommerceAPI.Controllers
                 return NoContent();
             } catch(Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 
@@ -39,7 +39,7 @@ namespace Pviturro.EcommerceAPI.Controllers
                 return NoContent();
             } catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 
@@ -52,7 +52,7 @@ namespace Pviturro.EcommerceAPI.Controllers
                 return NoContent();
             } catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 
@@ -65,7 +65,7 @@ namespace Pviturro.EcommerceAPI.Controllers
                 return NoContent();
             } catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
     }
