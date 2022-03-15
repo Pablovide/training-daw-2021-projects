@@ -82,21 +82,6 @@ export default {
     EProduct
   },
   methods: {
-    sendCart() {
-      //       fetch(
-      //   `${process.env.VUE_APP_API_SCHEMA}://${process.env.VUE_APP_API_URL}/cart/0`,
-      //   {
-      //     method: "PUT",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({
-      //       id: 0,
-      //       products: store.state.cartItems,
-      //     }),
-      //   }
-      // );
-    }
   },
 };
 </script>
