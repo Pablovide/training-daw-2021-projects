@@ -30,7 +30,12 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
 
         public void DeleteProductFromSomeonesCart(string email, int id)
         {
-            _shoppingCart.Remove(_shoppingCart.Where(_ => _.Product.Id == id && _.Email.Equals(email)).First());
+            if (IsClientInCart(email))
+            {
+                _shoppingCart.Remove(_shoppingCart.Where(_ => _.Product.Id == id && _.Email.Equals(email)).First());
+                return;
+            }
+            throw new Exception($"No se ha encontrado un cliente con email {email}");
         }
 
         public void EmptyCart()
@@ -38,9 +43,19 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             _shoppingCart.RemoveRange(_shoppingCart.ToList());
         }
 
+        public bool IsClientInCart(string email)
+        {
+            return _shoppingCart.Any(_ => _.Email.Equals(email));
+        }
+
         public bool IsProductInSomeonesCart(string email, int id)
         {
-            return _shoppingCart.Any(_ => _.Product.Id == id && _.Email.Equals(email));
+            if (IsClientInCart(email))
+            {
+                return _shoppingCart.Any(_ => _.Product.Id == id && _.Email.Equals(email));
+            }
+            throw new Exception($"No se ha encontrado un cliente con email {email}");
+
         }
 
         public bool IsProductInWholeCart(int id)

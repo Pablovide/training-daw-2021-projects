@@ -31,7 +31,12 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
 
         public void DeleteCategory(int id)
         {
+            var products = _productRepository.GetAllProductsByCategory(id);
             _categoryRepository.DeleteCategory(id);
+            foreach (var item in products)
+            {
+                DeleteProduct(item.Id);
+            }
             _context.SaveChanges();
         }
 
@@ -53,7 +58,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
 
         public void CreateProduct(ProductEntity productEntity)
         {
-            if(_categoryRepository.GetCategoryById(productEntity.CategoryId) == null) throw new Exception();
+            if (_categoryRepository.GetCategoryById(productEntity.CategoryId) == null) throw new Exception();
             productEntity.Category = _categoryRepository.GetCategoryById(productEntity.CategoryId);
             _productRepository.CreateProduct(productEntity);
             _context.SaveChanges();
@@ -98,10 +103,14 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             var product = _productRepository.GetProductById(cartEntity.Product.Id);
             if (product != null)
             {
-                if (_shoppingCartRepository.IsProductInSomeonesCart(cartEntity.Email, cartEntity.Product.Id)) { throw new Exception("Product is already in cart"); }
+                if (_shoppingCartRepository.IsClientInCart(cartEntity.Email))
+                {
+                    if (_shoppingCartRepository.IsProductInSomeonesCart(cartEntity.Email, cartEntity.Product.Id)) { throw new Exception($"El producto {cartEntity.Product.Id} ya está en el carrito de {cartEntity.Email}"); }
+                }
                 _shoppingCartRepository.AddProductToCart(cartEntity);
                 _context.SaveChanges();
                 return;
+
             }
             throw new Exception($"No se ha encontrado producto con ID {cartEntity.Product.Id}");
         }

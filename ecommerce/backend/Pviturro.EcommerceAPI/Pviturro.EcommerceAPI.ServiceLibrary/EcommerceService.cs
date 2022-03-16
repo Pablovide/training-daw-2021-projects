@@ -133,7 +133,7 @@ namespace Pviturro.EcommerceAPI.ServiceLibrary
                 _cartService.UpdateProductInCart(id, quantity, email);
                 return;
             }
-            throw new Exception();
+            throw new Exception($"El carrito del cliente {email} no contiene el producto {id}");
         }
     }
 }

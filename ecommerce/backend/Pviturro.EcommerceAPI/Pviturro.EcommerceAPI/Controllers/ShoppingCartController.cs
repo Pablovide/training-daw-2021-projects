@@ -43,12 +43,12 @@ namespace Pviturro.EcommerceAPI.Controllers
             }
         }
 
-        [HttpPut("/cart/update/{id}/{qtity}")]
-        public IActionResult UpdateProductInCart(int id, int qtity, string email)
+        [HttpPut("/cart/update/{productId}/{qtity}")]
+        public IActionResult UpdateProductInCart(int productId, int qtity, string email)
         {
             try
             {
-                _service.UpdateProductInCart(id, qtity, email);
+                _service.UpdateProductInCart(productId, qtity, email);
                 return NoContent();
             } catch (Exception e)
             {

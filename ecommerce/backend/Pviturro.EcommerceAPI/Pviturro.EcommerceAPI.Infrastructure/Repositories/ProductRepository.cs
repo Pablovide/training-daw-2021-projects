@@ -50,7 +50,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
             var result = _products.Find(id);
             if (result != null)
                 return result;
-            throw new Exception();
+            throw new Exception($"No se ha encontrado un producto con ID {id}");
         }
 
         public void UpdateProduct(int id, ProductEntity productEntity)
@@ -64,7 +64,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
                 targetProduct.price = productEntity.price;
                 return;
             }
-            throw new Exception();
+            throw new Exception($"No se ha encontrado un producto con ID {id}");
         }
     }
 }
