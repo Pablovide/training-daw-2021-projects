@@ -32,7 +32,7 @@
             <div>${{ $store.state.totalPrice }}</div>
           </div>
           <router-link :to="{ name: 'cart' }"
-            ><b-button v-on:click="sendCart()" variant="primary">Checkout</b-button></router-link
+            ><b-button variant="primary">Checkout</b-button></router-link
           >
         </b-card>
       </div>

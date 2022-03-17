@@ -21,7 +21,7 @@
         <router-link :to="{ name: 'Home' }"
           ><b-button variant="primary">Home</b-button></router-link
         >
-        <b-button variant="primary" v-on:click="addProductToCart(product)"
+        <b-button variant="primary" v-on:click="addProductToCart()"
           >Add to cart</b-button
         >
       </div></b-card
