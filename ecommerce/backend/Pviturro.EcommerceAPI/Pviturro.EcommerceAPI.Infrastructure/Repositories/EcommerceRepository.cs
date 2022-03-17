@@ -94,6 +94,7 @@ namespace Pviturro.EcommerceAPI.Infrastructure.Repositories
 
         public void UpdateProduct(int id, ProductEntity productEntity)
         {
+            productEntity.Category = _categoryRepository.GetCategoryById(productEntity.CategoryId);
             _productRepository.UpdateProduct(id, productEntity);
             _context.SaveChanges();
         }
